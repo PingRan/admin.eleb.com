@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Shop;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -27,4 +28,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+     //获取对应的店铺名字
+//    public function shop()
+//    {
+//        return $this->hasMany(Shop::class,'user_id','id');
+//    }
 }

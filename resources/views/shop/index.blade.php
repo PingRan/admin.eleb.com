@@ -6,6 +6,7 @@
             <th>商家名字</th>
             <th>商家账号</th>
             <th>商家分类</th>
+            <th>添加时间</th>
             <th>商家状态</th>
             <th>操作</th>
         </tr>
@@ -13,8 +14,9 @@
             <tr>
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->shop_name}}</td>
-                <td>{{$shop->email->name}}</td>
-                {{--<td>{{$shop->shop_category->name}}</td>--}}
+                <td>{{$shop->name->name}}</td>
+                <td>{{$shop->shop_category->name}}</td>
+                <td>{{$shop->created_at}}</td>
                 <td>{{$shop->status?'已审核':'未审核'}}</td>
                 <td><a class="test" href="{{route('shops.edit',['shop'=>$shop->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>

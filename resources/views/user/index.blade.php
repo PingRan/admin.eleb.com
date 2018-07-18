@@ -7,7 +7,8 @@
             <th>商家账号</th>
             <th>商家邮箱</th>
             <th>账号状态</th>
-            <th>所属店铺</th>
+            <th>拥有店铺</th>
+            <th>注册时间</th>
             <th>操作</th>
         </tr>
         @foreach($users as $user)
@@ -15,12 +16,13 @@
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                {{--<td>{{$shop->shop_category->name}}</td>--}}
                 <td>{{$user->status?'可用':'禁用'}}</td>
+                <td>{{$user->shop_id}}</td>
+                <td>{{$user->created_at}}</td>
                 <td><a class="test" href="{{route('users.edit',['user'=>$user->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>
-                    <a class="test" href="{{route('users.show',['user'=>$user])}}"><span
-                                class="glyphicon glyphicon-zoom-in"></span></a>
+                    {{--<a class="test" href="{{route('users.show',['user'=>$user])}}"><span--}}
+                                {{--class="glyphicon glyphicon-zoom-in"></span></a>--}}
 
                     <a id="{{$user->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
                 </td>

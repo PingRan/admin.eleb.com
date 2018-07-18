@@ -21,7 +21,7 @@ class Shop extends Model
         return $this->hasOne(ShopCategory::class,'id','shop_category_id');
     }
 
-    public function email()
+    public function name()
     {
         return $this->hasOne(User::class,'id','id');
     }

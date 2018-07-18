@@ -36,7 +36,7 @@
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">账号状态(选中表示启用)</label>
             <div class="col-sm-10">
-                <input type="checkbox" name="UserStatus" value="1">
+                <input type="checkbox" checked name="UserStatus" value="1">
             </div>
         </div>
 
@@ -131,9 +131,9 @@
         <div class="form-group">
             <label for="inputPassword4" class="col-sm-2 control-label">状态</label>
             <div class="col-sm-10">
-                <input type="radio" name="ShopStatus" value="1">正常
-                <input type="radio" checked name="ShopStatus" value="0">待审核
-                <input type="radio" name="ShopStatus" value="-1">禁用
+                <input type="radio" name="ShopStatus" checked value="1">正常
+                {{--<input type="radio" checked name="ShopStatus" value="0">待审核--}}
+                {{--<input type="radio" name="ShopStatus" value="-1">禁用--}}
             </div>
         </div>
 

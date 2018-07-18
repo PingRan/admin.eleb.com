@@ -193,4 +193,11 @@ class ShopController extends Controller
         $shop->delete();
         echo '删除成功';
     }
+
+
+    public function show(Shop $shop)
+    {
+        return view('shop.show',compact('shop'));
+    }
+
 }
