@@ -29,9 +29,5 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-     //获取对应的店铺名字
-//    public function shop()
-//    {
-//        return $this->hasMany(Shop::class,'user_id','id');
-//    }
+
 }

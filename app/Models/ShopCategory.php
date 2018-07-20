@@ -14,4 +14,10 @@ class ShopCategory extends Model
     {
         return Storage::url($this->img);
     }
+
+    public function shops()
+    {
+        return $this->hasMany(Shop::class,'shop_category_id','id');
+    }
+
 }

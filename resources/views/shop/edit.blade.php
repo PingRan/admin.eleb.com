@@ -63,7 +63,7 @@
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">logo</label>
             <div class="col-sm-10">
-                <img width="100px;" src="{{$shop->shop_img()}}" alt="">
+                <img width="100px;" src="{{$shop->shop_img}}" alt="">
                 <input type="file" name="shop_img">
             </div>
         </div>

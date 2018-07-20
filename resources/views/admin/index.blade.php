@@ -2,39 +2,39 @@
 @section('content')
     <table class="table table-striped table-hover">
         <tr class="success">
-            <th>商家编号</th>
-            <th>商家名字</th>
-            {{--<th>商家账号</th>--}}
-            <th>商家分类</th>
+            <th>管理员id</th>
+            <th>管理员账号</th>
+            <th>管理员邮箱</th>
             <th>添加时间</th>
-            <th>商家状态</th>
             <th>操作</th>
         </tr>
-        @foreach($shops as $shop)
+        @foreach($admins as $admin)
             <tr>
-                <td>{{$shop->id}}</td>
-                <td>{{$shop->shop_name}}</td>
-                {{--<td>{{$shop->name->name}}</td>--}}
-                <td>{{$shop->shop_category->name}}</td>
-                <td>{{$shop->created_at}}</td>
-                <td>{{$shop->status?($shop->status==1?'正常':'禁用'):'待审核'}}</td>
-                <td><a class="test" href="{{route('shops.edit',['shop'=>$shop->id])}}"><span
+                <td>{{$admin->id}}</td>
+                <td>{{$admin->name}}</td>
+                <td>{{$admin->email}}</td>
+                <td>{{$admin->created_at}}</td>
+
+                <td>
+                    @if(Auth()->id()===$admin->id)
+                    <a class="test" href="{{route('admins.edit',['admin'=>$admin->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>
-                    <a class="test" href="{{route('shops.show',['shop'=>$shop])}}"><span
+                    @endif
+                    <a class="test" href="{{route('admins.show',['admin'=>$admin])}}"><span
                                 class="glyphicon glyphicon-zoom-in"></span></a>
-                    <a id="{{$shop->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                    {{--<a id="{{$admin->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>--}}
                 </td>
             </tr>
         @endforeach
     </table>
-    {{$shops->links()}}
+    {{--{{$admin->links()}}--}}
 @endsection
 
 @section('js')
     <script>
         $('.table').on('click', '.delete', function () {
 
-            var url = "shops/" + this.id;
+            var url = "admins/" + this.id;
 
             $.ajaxSetup({
                 headers: {

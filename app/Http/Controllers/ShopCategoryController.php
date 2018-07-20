@@ -88,10 +88,29 @@ class ShopCategoryController extends Controller
     }
 
 
-    public function destroy(ShopCategory $ShopCategory)
+    public function destroy(ShopCategory $shopcategory)
     {
 
-        $ShopCategory->delete();
-        echo '删除成功';
+
+
+        $id=$shopcategory->id;
+
+        $a=ShopCategory::where('id',$id)->withCount('shops')->first();
+
+        $shops=$a->shops_count;
+
+        $success=['success'=>true];
+
+        if($shops>0){
+            $success=['success'=>false];
+            $res=json_encode($success);
+            echo $res;
+            return ;
+        }
+
+        $shopcategory->delete();
+        $res=json_encode($success);
+        echo $res;
+
     }
 }

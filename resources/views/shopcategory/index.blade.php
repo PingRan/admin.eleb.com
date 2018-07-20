@@ -41,9 +41,18 @@
                 url:url,
                 type:"DELETE",
                 dataType:"json",
-                error:function(e){
+                success:function(e){
+
+
+                    if(e['success']){
+                        alert('删除成功');
+                    }else{
+                        alert('该分类下有店铺，不能删除')
+                    }
 
                     location.href="";
+
+
                 }
             });
 

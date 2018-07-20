@@ -21,14 +21,10 @@ class Shop extends Model
         return $this->hasOne(ShopCategory::class,'id','shop_category_id');
     }
 
-    public function name()
-    {
-        return $this->hasOne(User::class,'id','id');
-    }
+//    public function name()
+//    {
+//        return $this->hasOne(User::class,'id','id');
+//    }
 
-    public function shop_img()
-    {
-        return Storage::url($this->shop_img);
-    } 
     
 }

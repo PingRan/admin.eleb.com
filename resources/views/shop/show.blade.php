@@ -8,7 +8,7 @@
        </tr>
        <tr>
            <td>店铺图片</td>
-           <td><img width="50px;" src="{{$shop->shop_img()}}" alt=""></td>
+           <td><img width="50px;" src="{{$shop->shop_img}}" alt=""></td>
        </tr>
 
        <tr>
@@ -76,5 +76,14 @@
            <td>状态:1正常,0待审核,-1禁用</td>
            <td>{{$shop->status?($shop->status==1?'正常':'禁用'):'待审核'}}</td>
        </tr>
+
+       <tr>
+           @if($shop->status==1)
+               <td><a class="btn btn-primary btn-lg " href="{{route('audit.update',['shop'=>$shop,'status'=>-1])}}">禁用</a></td>
+           @elseif(($shop->status==0)||($shop->status==-1))
+           <td><a class="btn btn-primary btn-lg" href="{{route('audit.update',['shop'=>$shop,'status'=>1])}}">审核</a></td>
+           @endif
+       </tr>
+
    </table>
 @endsection
