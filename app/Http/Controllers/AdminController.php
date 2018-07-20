@@ -9,6 +9,13 @@ use Illuminate\Validation\Rule;
 
 class AdminController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
+
     //显示管理员账号列表
     public function index()
     {

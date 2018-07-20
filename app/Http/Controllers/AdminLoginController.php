@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 class AdminLoginController extends Controller
 {
 
+
+
     public function index()
     {
         if(Auth::check()){
@@ -19,6 +21,7 @@ class AdminLoginController extends Controller
 
     public function check(Request $request)
     {
+
         $this->validate($request,
             [
                 'name' => ['required'],
@@ -32,6 +35,7 @@ class AdminLoginController extends Controller
                 'captcha.captcha' => '验证码出错',
             ]
         );
+
         if (Auth::attempt(['name' => $request->name, 'password' => $request->password],$request->remberme)) {
 
             session()->flash('success','登录成功');

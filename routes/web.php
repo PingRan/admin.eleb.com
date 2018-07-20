@@ -17,11 +17,16 @@ Route::get('/', function () {
 Route::resource('shopcategories','ShopCategoryController');
 
 Route::resource('shops','ShopController');
+
 Route::resource('users','UserController');
+
 Route::get('audit/{shop}/{status}','AuditController@audit')->name('audit.update');
+
 Route::resource('admins','AdminController');
+
 Route::get('updatestatus/{user}/{status}','UserController@updatestatus')->name('update.status');
-Route::get('adminlogin','AdminLoginController@index')->name('adminlogin');
+
+Route::get('login','AdminLoginController@index')->name('login');
 
 Route::post('adminlogin','AdminLoginController@check')->name('adminlogin');
 

@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class AuditController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
     //审核
     public function audit(Request $request,Shop $shop)
     {

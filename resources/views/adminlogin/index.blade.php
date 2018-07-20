@@ -1,5 +1,6 @@
 @extends('default')
 @section('content')
+    @include('default._errors')
     <form class="form-horizontal" action="{{route('adminlogin')}}" method="post">
         <div class="form-group">
             <label for="inputUserName3" class="col-sm-2 control-label">账号</label>

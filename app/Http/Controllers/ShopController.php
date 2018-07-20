@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\Storage;
 
 class ShopController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
+
+
     //展示商户信息
     public function index()
     {
@@ -167,7 +175,7 @@ class ShopController extends Controller
         );
 
 
-        $data = ['shop_name' => $request->shop_name, 'shop_category_id' => $request->shop_category_id, 'start_send' => $request->start_send, 'send_cost' => $request->send_cost];
+        $data = ['shop_name' => $request->shop_name, 'shop_category_id' => $request->shop_category_id, 'start_send' => $request->start_send, 'send_cost' => $request->send_cost,'status'=>$shop->status];
 
 
         $data['brand'] = $request->brand??0;
@@ -176,7 +184,6 @@ class ShopController extends Controller
         $data['bao'] = $request->bao??0;
         $data['piao'] = $request->piao??0;
         $data['zhun'] = $request->zhun??0;
-        $data['status'] = $request->ShopStatus;
         $data['shop_rating'] = 5;//商店评分要优化
 
         if ($request->shop_img) {

@@ -8,7 +8,14 @@ use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
-    //
+
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
+
     public function index()
     {
         $users=User::paginate(6);
