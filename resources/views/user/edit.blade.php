@@ -7,28 +7,28 @@
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">账号</label>
             <div class="col-sm-10">
-                <input type="text" name="name" value="{{$user->name}}">
+                <input type="text" class="form-control" name="name" value="{{$user->name}}">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">email</label>
             <div class="col-sm-10">
-                <input type="text" name="email" value="{{$user->email}}">
+                <input type="text" class="form-control" name="email" value="{{$user->email}}">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">密码</label>
             <div class="col-sm-10">
-                <input type="password" name="password">
+                <input  class="form-control" type="password" name="password">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">确认密码</label>
             <div class="col-sm-10">
-                <input type="password" name="password_confirmation">
+                <input  class="form-control" type="password" name="password_confirmation">
             </div>
         </div>
 
@@ -45,7 +45,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">发布</button>
+                <button type="submit" class="btn btn-primary btn-block">发布</button>
             </div>
         </div>
     </form>

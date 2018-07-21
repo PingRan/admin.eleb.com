@@ -20,6 +20,10 @@ Route::resource('shops','ShopController');
 
 Route::resource('users','UserController');
 
+Route::get('addshop/{id}','ShopController@addshop')->name('addshop');
+
+Route::post('addshop/{id}','ShopController@saveshop')->name('saveshop');
+
 Route::get('audit/{shop}/{status}','AuditController@audit')->name('audit.update');
 
 Route::resource('admins','AdminController');
@@ -37,3 +41,7 @@ Route::get('resetpass','UserController@resetpass')->name('resetpass');
 Route::get('resetname','UserController@resetname')->name('resetname');
 
 Route::post('resetpass/{user}','UserController@resetpassword')->name('resetpassword');
+
+Route::resource('activities','ActivityController');
+
+Route::get('showall/{id}','ShopController@showall')->name('showall');

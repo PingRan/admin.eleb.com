@@ -6,10 +6,10 @@
             <th>id</th>
             <th>商家账号</th>
             <th>商家邮箱</th>
-            <th>拥有店铺</th>
             <th>注册时间</th>
             <th>账号状态</th>
-            <th>状态操作</th>
+            <th>店铺</th>
+            <th>账号审核</th>
             <th>操作</th>
         </tr>
         @foreach($users as $user)
@@ -17,9 +17,12 @@
                 <td>{{$user->id}}</td>
                 <td>{{$user->name}}</td>
                 <td>{{$user->email}}</td>
-                <td>{{$user->shop_id}}</td>
                 <td>{{$user->created_at}}</td>
                 <td>{{$user->status?'可用':'禁用'}}</td>
+                <td>
+                    <a href="{{route('addshop',['id'=>$user->id])}}">添加商铺</a>
+                    <a href="{{route('showall',['id'=>$user->id])}}">查看商铺</a>
+                </td>
                 <td>
                     @if(!$user->status)
                     <a href="{{route('update.status',['user'=>$user,'status'=>1])}}">启动</a>

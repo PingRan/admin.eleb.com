@@ -11,7 +11,7 @@
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">搜索</button>
+                <button type="submit" class="btn btn-primary btn-block">搜索</button>
             </div>
         </div>
     </form>

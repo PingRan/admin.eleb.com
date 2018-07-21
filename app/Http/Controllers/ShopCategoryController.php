@@ -34,12 +34,12 @@ class ShopCategoryController extends Controller
     {
         $this->validate($request,
             [
-                'name' => ['required', 'max:5'],
+                'name' => ['required', 'max:10'],
                 'img' => ['dimensions:min_width=1,min_height=1'],
             ],
             [
                 'name.required' => '分类名字不能为空',
-                'name.max' => '分类名字不能超过5个字',
+                'name.max' => '分类名字不能超过10个字',
                 'img.dimensions' => '请上传图片格式',
             ]
         );
@@ -70,12 +70,12 @@ class ShopCategoryController extends Controller
     {
         $this->validate($request,
             [
-                'name' => ['required', 'max:5'],
+                'name' => ['required', 'max:10'],
                 'img' => ['dimensions:min_width=1,min_height=1'],
             ],
             [
                 'name.required' => '分类名字不能为空',
-                'name.max' => '分类名字不能超过5个字',
+                'name.max' => '分类名字不能超过10个字',
                 'img.dimensions' => '请上传图片格式',
             ]
         );

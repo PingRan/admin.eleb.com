@@ -24,7 +24,7 @@
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">原密码</label>
             <div class="col-sm-10">
-                <input type="password" name="oldpassword">
+                <input class="form-control" type="password" name="oldpassword">
             </div>
         </div>
 
@@ -32,21 +32,21 @@
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">新密码</label>
             <div class="col-sm-10">
-                <input type="password" name="newpassword">
+                <input  class="form-control" type="password" name="newpassword">
             </div>
         </div>
 
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">确认密码</label>
             <div class="col-sm-10">
-                <input type="password" name="newpassword_confirmation">
+                <input  class="form-control" type="password" name="newpassword_confirmation">
             </div>
         </div>
 
 
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-primary">修改</button>
+                <button type="submit" class="btn btn-primary btn-block">修改</button>
             </div>
         </div>
     </form>

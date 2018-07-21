@@ -9,10 +9,9 @@ class AdminLoginController extends Controller
 {
 
 
-
     public function index()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('shops.index');
         }
 
@@ -36,14 +35,14 @@ class AdminLoginController extends Controller
             ]
         );
 
-        if (Auth::attempt(['name' => $request->name, 'password' => $request->password],$request->remberme)) {
+        if (Auth::attempt(['name' => $request->name, 'password' => $request->password], $request->remberme)) {
 
-            session()->flash('success','登录成功');
+            session()->flash('success', '登录成功');
 
             return redirect()->route('admins.index');
         } else {
 
-            session()->flash('danger','账号或者密码错误');
+            session()->flash('danger', '账号或者密码错误');
 
             return back()->withInput();
         }
@@ -51,10 +50,10 @@ class AdminLoginController extends Controller
 
     public function loginout()
     {
-       Auth::logout();
+        Auth::logout();
 
-       session()->flash('success','注销成功');
+        session()->flash('success', '注销成功');
 
-       return redirect()->route('adminlogin');
+        return redirect()->route('adminlogin');
     }
 }

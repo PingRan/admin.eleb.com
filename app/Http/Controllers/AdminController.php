@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
@@ -34,13 +35,13 @@ class AdminController extends Controller
     {
         $this->validate($request,
             [
-             'name'=>['required','max:15','unique:admins'],
+             'name'=>['required','between:6,12','unique:admins'],
              'email'=>['required','email','unique:admins'],
              'password' => ['required', 'between:6,18', 'confirmed'],
             ],
             [
                 'name.required' => '账号不能为空',
-                'name.max' => '账号不能超过15个字符',
+                'name.between' => '账号在6-12个字符',
                 'name.unique' => '账号已存在',
                 'email.required' => '邮箱不能为空',
                 'email.email' => '邮箱格式不对',
@@ -80,9 +81,6 @@ class AdminController extends Controller
                 'email'=>['required',Rule::unique('admins')->ignore($admin->id)]
             ],
             [
-                'name.required' => '账号不能为空',
-                'name.max' => '账号不能超过15个字符',
-                'name.unique' => '账号已存在',
                 'email.required' => '邮箱不能为空',
                 'email.email' => '邮箱格式不对',
                 'email.unique' => '邮箱已存在',
@@ -108,8 +106,9 @@ class AdminController extends Controller
 
                $admin->update(['password'=>$newpassword,'email'=>$request->email]);
 
-               session()->flash('success','修改成功');
-               return redirect()->route('admins.index');
+               session()->flash('success','修改成功,请重新登录');
+               Auth::logout();
+               return redirect()->route('login');
 
            }else{
                session()->flash('danger','旧密码错误');
