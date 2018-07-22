@@ -35,21 +35,22 @@ class ShopCategoryController extends Controller
         $this->validate($request,
             [
                 'name' => ['required', 'max:10'],
-                'img' => ['dimensions:min_width=1,min_height=1'],
+//                'img' => ['required'],
             ],
             [
                 'name.required' => '分类名字不能为空',
                 'name.max' => '分类名字不能超过10个字',
-                'img.dimensions' => '请上传图片格式',
+//                'img.dimensions' => '请上传图片格式',
             ]
         );
 
 
         if ($request->img) {
-            $fileName = $request->img->store('public/img');
-            $request['img'] = $fileName;
+
+            $request['img']=$request->img;
+
         } else {
-            $request['img'] = 'public/img/NIPbVWiP9R62FgWgtazi4UXdFZP8kaVFFpsOMy6j.jpeg';
+            $request['img'] = 'http://elebran.oss-cn-shenzhen.aliyuncs.com/elebran/upload/08OKM34Y9GdYt5rEdvBLnJS0OQn3s4MBMvfIsoCk.jpeg';
         }
 
         ShopCategory::create($request->input());
@@ -71,12 +72,12 @@ class ShopCategoryController extends Controller
         $this->validate($request,
             [
                 'name' => ['required', 'max:10'],
-                'img' => ['dimensions:min_width=1,min_height=1'],
+//                'img' => ['dimensions:min_width=1,min_height=1'],
             ],
             [
                 'name.required' => '分类名字不能为空',
                 'name.max' => '分类名字不能超过10个字',
-                'img.dimensions' => '请上传图片格式',
+//                'img.dimensions' => '请上传图片格式',
             ]
         );
 
@@ -85,8 +86,8 @@ class ShopCategoryController extends Controller
         $status=$request->status??0;
         $data['status']=$status;
         if ($request->img) {
-            $fileName = $request->img->store('public/img');
-            $data['img'] = $fileName;
+
+            $data['img']=$request->img;
         }
 
         $shopcategory->update($data);

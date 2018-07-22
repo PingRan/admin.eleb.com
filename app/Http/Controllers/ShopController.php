@@ -48,7 +48,7 @@ class ShopController extends Controller
                 'password' => ['required', 'between:6,18', 'confirmed'],
                 'shop_category_id' => ['required'],
                 'shop_name' => ['required', 'max:20'],
-                'shop_img' => ['required', 'dimensions:min_width=1,min_height=1'],
+                'shop_img' => ['required'],
                 'start_send' => ['required'],
                 'send_cost' => ['required'],
             ], [
@@ -65,7 +65,6 @@ class ShopController extends Controller
                 'password.required' => '密码必须填写',
                 'password.between' => '密码在6-18位',
                 'password.confirmed' => '密码和确认密码不一致！',
-                'shop_img.dimensions' => '请上传一张图片',
                 'shop_img.required' => '请上传店铺图片'
             ]
         );
@@ -78,11 +77,8 @@ class ShopController extends Controller
         $request['piao'] = $request->piao??0;
         $request['zhun'] = $request->zhun??0;
 
-        $fileName = $request->shop_img->store('public/shop_img');
 
-        $request['shop_img'] = url(Storage::url($fileName));
-
-        $request['shop_rating'] = 5;
+        $request['shop_rating'] =mt_rand(1,5);
 
         $request['status'] = $request->ShopStatus;
 
@@ -136,7 +132,7 @@ class ShopController extends Controller
             [
                 'shop_category_id' => ['required'],
                 'shop_name' => ['required', 'max:20'],
-                'shop_img' => ['dimensions:min_width=1,min_height=1'],
+//                'shop_img' => ['dimensions:min_width=1,min_height=1'],
                 'start_send' => ['required'],
                 'send_cost' => ['required'],
             ], [
@@ -144,12 +140,12 @@ class ShopController extends Controller
                 'shop_name.max' => '店铺名字在20位以内',
                 'start_send.required' => '起送金额不能为空',
                 'send_cost.required' => '配送金额不能为空',
-                'shop_img.dimensions' => '请上传一张图片',
+//                'shop_img.dimensions' => '请上传一张图片',
             ]
         );
 
 
-        $data = ['shop_name' => $request->shop_name, 'shop_category_id' => $request->shop_category_id, 'start_send' => $request->start_send, 'send_cost' => $request->send_cost, 'status' => $shop->status];
+        $data = ['shop_name' => $request->shop_name, 'shop_category_id' => $request->shop_category_id, 'start_send' => $request->start_send, 'send_cost' => $request->send_cost, 'status' => $request->ShopStatus];
 
 
         $data['brand'] = $request->brand??0;
@@ -158,14 +154,12 @@ class ShopController extends Controller
         $data['bao'] = $request->bao??0;
         $data['piao'] = $request->piao??0;
         $data['zhun'] = $request->zhun??0;
-        $data['shop_rating'] = 5;//商店评分要优化
+        $data['shop_rating'] = mt_rand(1,5);//商店评分要优化
 
         if ($request->shop_img) {
 
-            $fileName = $request->shop_img->store('public/shop_img');
-            $data['shop_img'] = $fileName;
+            $data['shop_img']=$request->shop_img;
         }
-
 
         $shop->update($data);
 
@@ -205,7 +199,7 @@ class ShopController extends Controller
                     'password' => ['required', 'between:6,18', 'confirmed'],
                     'shop_category_id' => ['required'],
                     'shop_name' => ['required', 'max:20'],
-                    'shop_img' => ['required', 'dimensions:min_width=1,min_height=1'],
+                    'shop_img' => ['required'],
                     'start_send' => ['required'],
                     'send_cost' => ['required'],
                 ], [
@@ -222,7 +216,6 @@ class ShopController extends Controller
                     'password.required' => '密码必须填写',
                     'password.between' => '密码在6-18位',
                     'password.confirmed' => '密码和确认密码不一致！',
-                    'shop_img.dimensions' => '请上传一张图片',
                     'shop_img.required' => '请上传店铺图片'
                 ]
             );
@@ -235,13 +228,11 @@ class ShopController extends Controller
             $request['piao'] = $request->piao??0;
             $request['zhun'] = $request->zhun??0;
 
-            $fileName = $request->shop_img->store('public/shop_img');
 
-            $request['shop_img'] = url(Storage::url($fileName));
 
-            $request['shop_rating'] = 5;
+            $request['shop_rating'] = mt_rand(1,5);
 
-            $request['status'] = $request->ShopStatus;
+            $request['status'] = $request->ShopStatus??0;
 
             $request['password'] = bcrypt($request->password);
 
@@ -273,7 +264,6 @@ class ShopController extends Controller
                 return redirect()->route('shops.index');
 
             } catch (\Exception $e) {
-                dd($e);
                 session()->flash('danger', '注册失败');
                 DB::rollBack();
             }
@@ -284,7 +274,7 @@ class ShopController extends Controller
                 [
                     'shop_category_id' => ['required'],
                     'shop_name' => ['required', 'max:20'],
-                    'shop_img' => ['required', 'dimensions:min_width=1,min_height=1'],
+                    'shop_img' => ['required'],
                     'start_send' => ['required'],
                     'send_cost' => ['required'],
                 ],
@@ -293,7 +283,6 @@ class ShopController extends Controller
                     'shop_name.max' => '店铺名字在20位以内',
                     'start_send.required' => '起送金额不能为空',
                     'send_cost.required' => '配送金额不能为空',
-                    'shop_img.dimensions' => '请上传一张图片',
                     'shop_img.required' => '请上传店铺图片'
                 ]
             );
@@ -306,17 +295,13 @@ class ShopController extends Controller
             $request['piao'] = $request->piao??0;
             $request['zhun'] = $request->zhun??0;
 
-            $fileName = $request->shop_img->store('public/shop_img');
 
-            $request['shop_img'] = url(Storage::url($fileName));
+            $request['shop_rating'] = mt_rand(1,5);
 
-            $request['shop_rating'] = 5;
-
-            $request['status'] = $request->ShopStatus;
-
-
+            $request['status'] = $request->ShopStatus??0;
 
             try {
+                DB::beginTransaction();
 
                 $shop = Shop::create($request->input());
 
@@ -331,7 +316,6 @@ class ShopController extends Controller
                 session()->flash('success', '添加商铺成功');
 
             } catch (\Exception $e) {
-                dd($e);
                 session()->flash('danger', '注册失败');
                 DB::rollBack();
             }
@@ -344,16 +328,9 @@ class ShopController extends Controller
         }
 
 
-
-
-
-
-
-
     }
 
     //查看指定账号下的所有商铺
-
     public function showall(Request $request)
     {
        $user_id=$request->id;

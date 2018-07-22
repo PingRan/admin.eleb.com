@@ -1,5 +1,8 @@
 @extends('default')
 @section('content')
+    <a href="{{route('activities.index',['code'=>2])}}" class="btn btn-default">未开始</a>
+    <a href="{{route('activities.index',['code'=>1])}}" class="btn btn-default">进行中</a>
+    <a href="{{route('activities.index',['code'=>-1])}}" class="btn btn-default">已结束</a>
     <table class="table table-striped table-hover">
         <tr class="success">
             <th>活动id</th>

@@ -12,7 +12,7 @@
             <tr>
                 <td>{{$category->id}}</td>
                 <td>{{$category->name}}</td>
-                <td><img width="50px;" src="{{$category->img()}}"></td>
+                <td><img width="50px;" src="{{$category->img}}"></td>
                 <td>{{$category->status?'显示':'隐藏'}}</td>
                 <td><a class="test" href="{{route('shopcategories.edit',['shopcategory'=>$category->id])}}"><span class="glyphicon glyphicon-edit"></span></a>
                     <a class="test" href="{{route('shopcategories.show',['shopcategory'=>$category])}}"><span class="glyphicon glyphicon-zoom-in"></span></a>

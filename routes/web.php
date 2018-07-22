@@ -45,3 +45,10 @@ Route::post('resetpass/{user}','UserController@resetpassword')->name('resetpassw
 Route::resource('activities','ActivityController');
 
 Route::get('showall/{id}','ShopController@showall')->name('showall');
+
+Route::post('uploader',function(){
+    $store=\Illuminate\Support\Facades\Storage::disk('oss');
+    $fileName=$store->putFile('elebran/upload',request()->file('file'));
+    $fileurl=$store->url($fileName);
+    return ['fileurl'=>$fileurl];
+})->name('uploader');

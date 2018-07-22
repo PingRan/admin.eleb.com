@@ -10,10 +10,6 @@ class ShopCategory extends Model
     //
     protected $fillable=['img','name','status'];
 
-    public function img()
-    {
-        return Storage::url($this->img);
-    }
 
     public function shops()
     {

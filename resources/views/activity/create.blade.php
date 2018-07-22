@@ -30,7 +30,7 @@
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">活动结束时间</label>
             <div class="col-sm-10">
-                <textarea id="container" name="content"  style="height: 300px;"></textarea>
+                <script id="container" name="content" type="text/plain"></script>
             </div>
         </div>
 
@@ -51,5 +51,5 @@
     </script>
 
     <!-- 编辑器容器 -->
-    <script id="container" name="content" type="text/plain"></script>
+
 @endsection

@@ -8,9 +8,27 @@ use Illuminate\Http\Request;
 class ActivityController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         $activities=Activity::all();
+
+        if($request->code==2){
+            //2表示查看未开始的活动
+            $now=time();
+            $activities=Activity::where('start_time','>',$now)->get();
+        }
+
+        if($request->code==1){
+            //1表示查看进行中的活动
+            $now=time();
+            $activities=Activity::where('start_time','<',$now)->where('end_time','>',$now)->get();
+        }
+
+        if($request->code==-1){
+            //-1表示查看活动结束
+            $now=time();
+            $activities=Activity::where('end_time','<',$now)->get();
+        }
 
         return view('activity.index',compact('activities'));
     }
@@ -27,6 +45,7 @@ class ActivityController extends Controller
             'title'=>'required|max:60|unique:activities',
              'start_time'=>'required|after:now',
              'end_time'=>'required|after:start_time',
+               'content'=>'required',
            ],
            [
              'title.required'=>'活动标题不能为空',
@@ -35,6 +54,7 @@ class ActivityController extends Controller
                'start_time.after'=>'活动的开始时间必须在当前时间之后',
               'end_time.required'=>'活动的结束时间不能为空',
               'end_time.after'=>'活动的结束时间不能小于当前时间',
+               'content.required'=>'活动内容不能为空',
            ]
        );
        $request['start_time']=strtotime($request->start_time);
