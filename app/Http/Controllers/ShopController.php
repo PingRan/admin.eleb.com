@@ -78,7 +78,7 @@ class ShopController extends Controller
         $request['zhun'] = $request->zhun??0;
 
 
-        $request['shop_rating'] =mt_rand(1,5);
+        $request['shop_rating'] =mt_rand(1,4).'.'.mt_rand(0,9);
 
         $request['status'] = $request->ShopStatus;
 
@@ -154,7 +154,7 @@ class ShopController extends Controller
         $data['bao'] = $request->bao??0;
         $data['piao'] = $request->piao??0;
         $data['zhun'] = $request->zhun??0;
-        $data['shop_rating'] = mt_rand(1,5);//商店评分要优化
+        $data['shop_rating'] = mt_rand(1,4).'.'.mt_rand(0,9);//商店评分要优化
 
         if ($request->shop_img) {
 
@@ -230,7 +230,7 @@ class ShopController extends Controller
 
 
 
-            $request['shop_rating'] = mt_rand(1,5);
+            $request['shop_rating'] = mt_rand(1,4).'.'.mt_rand(0,9);
 
             $request['status'] = $request->ShopStatus??0;
 
@@ -296,7 +296,7 @@ class ShopController extends Controller
             $request['zhun'] = $request->zhun??0;
 
 
-            $request['shop_rating'] = mt_rand(1,5);
+            $request['shop_rating'] = mt_rand(1,4).'.'.mt_rand(0,9);
 
             $request['status'] = $request->ShopStatus??0;
 
