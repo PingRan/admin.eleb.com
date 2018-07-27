@@ -10,7 +10,7 @@ class ActivityController extends Controller
     //
     public function index(Request $request)
     {
-        $activities=Activity::all();
+        $activities=Activity::paginate(6);
 
         if($request->code==2){
             //2表示查看未开始的活动

@@ -19,7 +19,7 @@ class ShopCategoryController extends Controller
     public function index()
     {
 
-        $categories = ShopCategory::all();
+        $categories = ShopCategory::paginate(6);
 
         return view('shopcategory.index', compact('categories'));
     }

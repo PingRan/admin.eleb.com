@@ -20,7 +20,7 @@ class AdminController extends Controller
     //显示管理员账号列表
     public function index()
     {
-        $admins=Admin::all();
+        $admins=Admin::paginate(6);
 
         return view('admin.index',compact('admins'));
      }

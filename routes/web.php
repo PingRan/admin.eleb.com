@@ -52,3 +52,6 @@ Route::post('uploader',function(){
     $fileurl=$store->url($fileName);
     return ['fileurl'=>$fileurl];
 })->name('uploader');
+
+Route::resource('members','MemberController');
+Route::resource('addresses','AddressController');

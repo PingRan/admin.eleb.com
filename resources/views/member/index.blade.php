@@ -2,39 +2,39 @@
 @section('content')
     <table class="table table-striped table-hover">
         <tr class="success">
-            <th>管理员id</th>
-            <th>管理员账号</th>
-            <th>管理员邮箱</th>
-            <th>添加时间</th>
+            <th>会员id</th>
+            <th>会员账号</th>
+            <th>会员电话</th>
+            <th>注册时间</th>
             <th>操作</th>
         </tr>
-        @foreach($admins as $admin)
+        @foreach($members as $member)
             <tr>
-                <td>{{$admin->id}}</td>
-                <td>{{$admin->name}}</td>
-                <td>{{$admin->email}}</td>
-                <td>{{$admin->created_at}}</td>
+                <td>{{$member->id}}</td>
+                <td>{{$member->username}}</td>
+                <td>{{$member->tel}}</td>
+                <td>{{$member->created_at}}</td>
 
                 <td>
-                    @if(Auth()->id()===$admin->id)
-                    <a class="test" href="{{route('admins.edit',['admin'=>$admin->id])}}"><span
+
+                    <a class="test" href="{{route('members.edit',['member'=>$member->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>
-                    @endif
-                    <a class="test" href="{{route('admins.show',['admin'=>$admin])}}"><span
+
+                    <a class="test" href="{{route('members.show',['member'=>$member])}}"><span
                                 class="glyphicon glyphicon-zoom-in"></span></a>
-                    {{--<a id="{{$admin->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>--}}
+                    <a id="{{$member->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
                 </td>
             </tr>
         @endforeach
     </table>
-    {{$admins->links()}}
+    {{$members->links()}}
 @endsection
 
 @section('js')
     <script>
         $('.table').on('click', '.delete', function () {
 
-            var url = "admins/" + this.id;
+            var url = "members/" + this.id;
 
             $.ajaxSetup({
                 headers: {
@@ -46,7 +46,7 @@
                 url: url,
                 type: "DELETE",
                 dataType: "json",
-                error: function (e) {
+                success: function (e) {
 
                     location.href = "";
                 }

@@ -26,7 +26,7 @@
             </tr>
         @endforeach
     </table>
-    {{--{{$shops->links()}}--}}
+    {{$activities->links()}}
 @endsection
 
 @section('js')
