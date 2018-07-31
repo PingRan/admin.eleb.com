@@ -27,9 +27,19 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-xs-4">
+            @yield('day')
+        </div>
+        <div class="col-xs-4">
+            @yield('month')
+        </div>
+        <div class="col-xs-4">
+            @yield('count')
+        </div>
+    </div>
 
    <div class="row">
-       @yield('myinfo')
        @include('default._messages')
        @yield('content')
        @yield('top_article')
@@ -37,16 +47,20 @@
 
 
     <div class="row">
-        <div class="col-xs-12">
-
+        <div class="col-xs-4">
+            @yield('menuDay')
+        </div>
+        <div class="col-xs-4">
+            @yield('menuMonth')
+        </div>
+        <div class="col-xs-4">
+            @yield('menuCount')
         </div>
     </div>
 
-    {{--@include('default._loginmodal')--}}
-
-    {{--<!-- Modal -->--}}
-    {{--@include('default._regmodal')--}}
-
+    <div class="row">
+        @yield('menu')
+    </div>
 
 </div>
 

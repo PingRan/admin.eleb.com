@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Traits\HasRoles;
 
 class AdminController extends Controller
 {
@@ -27,7 +29,9 @@ class AdminController extends Controller
 
     public function create()
     {
-        return view('admin.create');
+        $roles=Role::all();
+
+        return view('admin.create',compact('roles'));
      }
 
 
@@ -38,6 +42,7 @@ class AdminController extends Controller
              'name'=>['required','between:6,12','unique:admins'],
              'email'=>['required','email','unique:admins'],
              'password' => ['required', 'between:6,18', 'confirmed'],
+              'role'=>'required',
             ],
             [
                 'name.required' => '账号不能为空',
@@ -49,13 +54,16 @@ class AdminController extends Controller
                 'password.confirmed' => '密码和确认密码不一致',
                 'password.required' => '密码必须填写',
                 'password.between' => '密码在6-18位',
+                'role.required'=>'请选择角色',
             ]
         );
 
         $request['power']=0;
 
         $request['password']=bcrypt($request->password);
-        Admin::create($request->input());
+        $admin=Admin::create($request->input());
+
+        $admin->assignRole($request->role);
 
         session()->flash('success','添加成功');
 
@@ -66,10 +74,9 @@ class AdminController extends Controller
 
     public function edit(Admin $admin)
     {
-        $this->authorize('update',$admin);
-
         return view('admin.edit',compact('admin'));
-     }
+    }
+
 
     public function update(Request $request,Admin $admin)
     {
@@ -127,5 +134,31 @@ class AdminController extends Controller
     {
       return view('admin.show',compact('admin'));
      }
+     //修改管理员角色
+    public function editAdminRole(Admin $admin)
+    {
+        $this->authorize('update',$admin);
 
+        $roles=Role::all();//获取所有角色
+
+        return view('admin.editRole',compact('admin','roles'));
+    }
+
+    public function saveAdminRole(Request $request,Admin $admin)
+    {
+        $this->validate($request,
+            [
+                'role'=>'required',
+            ],
+            [
+                'role.required'=>'请分配角色',
+            ]
+        );
+        $admin->syncRoles($request->role);
+
+        session()->flash('success','修改角色成功');
+        return redirect()->route('admins.index');
+
+    }
+    
 }

@@ -89,4 +89,19 @@ class MemberController extends Controller
         $member->delete();
         echo 1;
     }
+
+    public function show(Member $member)
+    {
+        return view('member.show',compact('member'));
+    }
+    //修改会员状态
+    public function editstatus(Request $request,Member $member)
+    {
+
+        $member->update(['status'=>$request->status]);
+
+        session()->flash('success','操作成功');
+
+        return redirect()->route('members.index');
+    }
 }

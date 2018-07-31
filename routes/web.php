@@ -54,4 +54,23 @@ Route::post('uploader',function(){
 })->name('uploader');
 
 Route::resource('members','MemberController');
+//修改会员状态
+Route::get('editstatus/{member}/{status}','MemberController@editstatus')->name('editstatus');
+
 Route::resource('addresses','AddressController');
+//平台订单页面
+Route::get('order','OrderController@index')->name('order.index');
+//平台端订单统计
+Route::get('orderCount','OrderController@orderCount')->name('orderCount');
+//菜品统计
+Route::get('menuCount','OrderController@menuCount')->name('menuCount');
+//整体统计
+Route::get('overall','OrderController@overall')->name('overall');
+//Permission权限
+Route::resource('permissions','PermissionController');
+//角色
+Route::resource('roles','RoleController');
+//修改管理员的角色
+Route::get('editAdminRole/{admin}','AdminController@editAdminRole')->name('editAdminRole');
+//保存管理员角色
+Route::post('saveAdminRole/{admin}','AdminController@saveAdminRole')->name('saveAdminRole');

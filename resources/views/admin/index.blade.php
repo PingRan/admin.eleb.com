@@ -6,6 +6,7 @@
             <th>管理员账号</th>
             <th>管理员邮箱</th>
             <th>添加时间</th>
+            <th>角色</th>
             <th>操作</th>
         </tr>
         @foreach($admins as $admin)
@@ -14,8 +15,12 @@
                 <td>{{$admin->name}}</td>
                 <td>{{$admin->email}}</td>
                 <td>{{$admin->created_at}}</td>
-
+                <td>@foreach($admin->getRoleNames() as $role)
+                        {{$role}}
+                     @endforeach
+                </td>
                 <td>
+                    <a class="test" href="{{route('editAdminRole',['admin'=>$admin->id])}}">修改管理员角色</a>
                     @if(Auth()->id()===$admin->id)
                     <a class="test" href="{{route('admins.edit',['admin'=>$admin->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>

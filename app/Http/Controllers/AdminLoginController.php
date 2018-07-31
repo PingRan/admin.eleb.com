@@ -54,6 +54,6 @@ class AdminLoginController extends Controller
 
         session()->flash('success', '注销成功');
 
-        return redirect()->route('adminlogin');
+        return redirect()->route('login');
     }
 }

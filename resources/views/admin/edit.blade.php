@@ -19,7 +19,6 @@
         </div>
 
         {{csrf_field()}}
-
         {{method_field('patch')}}
         <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">原密码</label>
@@ -42,6 +41,7 @@
                 <input  class="form-control" type="password" name="newpassword_confirmation">
             </div>
         </div>
+
 
 
         <div class="form-group">

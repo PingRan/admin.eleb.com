@@ -15,19 +15,19 @@ class ActivityController extends Controller
         if($request->code==2){
             //2表示查看未开始的活动
             $now=time();
-            $activities=Activity::where('start_time','>',$now)->get();
+            $activities=Activity::where('start_time','>',$now)->paginate(6);
         }
 
         if($request->code==1){
             //1表示查看进行中的活动
             $now=time();
-            $activities=Activity::where('start_time','<',$now)->where('end_time','>',$now)->get();
+            $activities=Activity::where('start_time','<',$now)->where('end_time','>',$now)->paginate(6);
         }
 
         if($request->code==-1){
             //-1表示查看活动结束
             $now=time();
-            $activities=Activity::where('end_time','<',$now)->get();
+            $activities=Activity::where('end_time','<',$now)->paginate(6);
         }
 
         return view('activity.index',compact('activities'));

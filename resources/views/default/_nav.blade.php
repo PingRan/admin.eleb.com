@@ -52,13 +52,49 @@
                         <li><a href="{{route('resetpass')}}">重置商家账号</a></li>
                     </ul>
                 </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">活动<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('activities.index')}}">活动列表</a></li>
+                        @can('Add-AdminArticle')
+                        <li><a href="{{route('activities.create')}}">活动添加</a></li>
+                        @endcan
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">订单<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('order.index')}}">统计</a></li>
+                        {{--<li><a href="{{route('menuCount')}}">菜品统计</a></li>--}}
+                        {{--<li><a href="{{route('overall')}}">整体统计</a></li>--}}
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">RBAC<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('permissions.index')}}">权限列表</a></li>
+                        <li><a href="{{route('roles.index')}}">角色列表</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">会员<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{route('members.index')}}">会员列表</a></li>
+                    </ul>
+                </li>
+
+
+
             </ul>
-            <form class="navbar-form navbar-left" method="get" action="">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="标题或者内容" name="keywords">
-                </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
+
             <ul class="nav navbar-nav navbar-right">
 
                 @guest
