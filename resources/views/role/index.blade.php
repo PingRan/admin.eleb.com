@@ -12,7 +12,7 @@
             <tr>
                 <td>{{$role->id}}</td>
                 <td>{{$role->name}}</td>
-                <td>
+                <td width="700px;">
                     @foreach($role->permission as $per)
                         {{$per->name}}&emsp;
                     @endforeach

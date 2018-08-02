@@ -20,15 +20,11 @@
                 <td>{{$user->created_at}}</td>
                 <td>{{$user->status?'可用':'禁用'}}</td>
                 <td>
-                    <a href="{{route('addshop',['id'=>$user->id])}}">添加商铺</a>
-                    <a href="{{route('showall',['id'=>$user->id])}}">查看商铺</a>
+                    <a class="bg-info btn" href="{{route('addshop',['id'=>$user->id])}}">添加商铺</a>
+                    <a class="bg-info btn" href="{{route('showall',['id'=>$user->id])}}">查看商铺</a>
                 </td>
                 <td>
-                    @if(!$user->status)
-                    <a href="{{route('update.status',['user'=>$user,'status'=>1])}}">启动</a>
-                    @else
-                        <a href="{{route('update.status',['user'=>$user,'status'=>0])}}">禁用</a>
-                    @endif
+                    <a class="bg-info btn"  href="{{route('update.status',['user'=>$user])}}">{{$user->status?'禁':'启'}}用</a>
                 </td>
                 <td><a class="test" href="{{route('users.edit',['user'=>$user->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>

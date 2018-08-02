@@ -39,7 +39,7 @@ class AdminLoginController extends Controller
 
             session()->flash('success', '登录成功');
 
-            return redirect()->route('admins.index');
+            return redirect()->route('shops.index');
         } else {
 
             session()->flash('danger', '账号或者密码错误');

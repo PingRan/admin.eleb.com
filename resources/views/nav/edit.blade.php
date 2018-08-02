@@ -1,45 +1,43 @@
 @extends('default')
 
-@section('css')
-    <link rel="stylesheet" type="text/css" href="/webuploader/webuploader.css">
-@endsection
-
-@section('web.js')
-    <script type="text/javascript" src="/webuploader/webuploader.js"></script>
-@endsection
-
 @section('content')
-    @include('default._errors')
-    <form class="form-horizontal" action="{{route('shopcategories.update',['shopcategory'=>$shopcategory])}}" method="post" enctype="multipart/form-data">
-        <div class="form-group">
-            <label for="inputUserName3" class="col-sm-2 control-label">分类名字</label>
-            <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputUserName3" placeholder="分类名字" name="name" value="{{$shopcategory->name}}">
+  @include('default._errors')
+    <form class="form-horizontal" action="{{route('navs.update',['nav'=>$nav])}}" method="post" enctype="multipart/form-data">
 
+
+        <div class="form-group">
+            <label for="inputPassword7" class="col-sm-2 control-label">菜单名字</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" name="name" value="{{$nav->name}}">
             </div>
         </div>
 
-         {{method_field('patch')}}
-        {{ csrf_field() }}
-
         <div class="form-group">
-            <label for="inputUserName3" class="col-sm-2 control-label">分类图片</label>
+            <label for="inputPassword7" class="col-sm-2 control-label">url地址</label>
             <div class="col-sm-10">
-                <div id="uploader-demo">
-                    <!--用来存放item-->
-                    <div id="fileList" class="uploader-list"></div>
-                    <div id="filePicker">选择图片</div>
-                    <img width="150px;" id="img" src="{{$shopcategory->img}}" alt="">
-                </div>
-                <input id="img_url" type="hidden" name="img">
+                <input type="text" class="form-control" name="url" value="{{$nav->url}}">
             </div>
         </div>
 
-
         <div class="form-group">
-            <label for="inputPassword8" class="col-sm-2 control-label">分类状态(选中表示显示)</label>
+            <label for="inputPassword7" class="col-sm-2 control-label">上级菜单</label>
             <div class="col-sm-10">
-                <input type="checkbox"  {{$shopcategory->status?'checked':''}}  name="status" value="1">
+                <select name="pid" id="">
+                    <option {{$nav->pid==0?'selected':''}} value="0">顶级菜单</option>
+                    @foreach($allNav as $oneNav)
+                        <option {{$oneNav->id==$nav->pid?'selected':''}} value="{{$oneNav->id}}">{{$oneNav->name}}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        {{method_field('patch')}}
+        {{csrf_field()}}
+        <div class="form-group">
+            <label for="inputPassword7" class="col-sm-2 control-label">请选择权限</label>
+            <div class="col-sm-10">
+                @foreach($permissions as $permission)
+                    <label><input type="radio"  {{$nav->permission_id==$permission->id?'checked':''}} name="permission_id" value="{{$permission->id}}">{{$permission->name}}</label>
+                @endforeach
             </div>
         </div>
 
@@ -50,7 +48,6 @@
         </div>
     </form>
 @endsection
-
 @section('js')
     <script>
         var uploader = WebUploader.create({

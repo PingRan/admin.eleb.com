@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Nav;
 use App\Models\Shop;
 use App\Models\ShopCategory;
 use App\Models\ShopUser;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -17,12 +19,16 @@ class ShopController extends Controller
         $this->middleware('auth', [
             'except' => [],
         ]);
-    }
 
+        $this->middleware(['role:商家管理员|超级管理员|管理员|审核员']);
+    }
 
     //展示商户信息
     public function index()
     {
+        if (! Auth::user()->hasPermissionTo('ShopList')) {
+            return 403;
+        }
         $shops = Shop::paginate(6);
 
         return view('shop.index', compact('shops'));
@@ -32,6 +38,12 @@ class ShopController extends Controller
     //添加商户信息页面
     public function create()
     {
+
+        if (! Auth::user()->hasPermissionTo('Add-ShopInfo')) {
+            return 403;
+        }
+
+
         $categories = ShopCategory::all();
 
         return view('shop.create', compact('categories'));
@@ -40,6 +52,10 @@ class ShopController extends Controller
     //商户信息保存
     public function store(Request $request)
     {
+
+        if (! Auth::user()->hasPermissionTo('Add-ShopInfo')) {
+            return 403;
+        }
 
         $this->validate($request,
             [
@@ -120,6 +136,9 @@ class ShopController extends Controller
     //商户信息修改页面
     public function edit(Shop $shop)
     {
+        if (! Auth::user()->hasPermissionTo('Edit-ShopInfo')) {
+            return 403;
+        }
         $categories = ShopCategory::all();
 
         return view('shop.edit', compact('shop', 'categories'));
@@ -128,6 +147,9 @@ class ShopController extends Controller
     //商户信息修改保存
     public function update(Request $request, Shop $shop)
     {
+        if (! Auth::user()->hasPermissionTo('Edit-ShopInfo')) {
+            return 403;
+        }
         $this->validate($request,
             [
                 'shop_category_id' => ['required'],
@@ -170,6 +192,9 @@ class ShopController extends Controller
     //商户删除
     public function destroy(Shop $shop)
     {
+        if (! Auth::user()->hasPermissionTo('Del-ShopInfo')) {
+            return 403;
+        }
         $shop->delete();
         echo '删除成功';
     }
@@ -177,11 +202,18 @@ class ShopController extends Controller
      //商户详情信息
     public function show(Shop $shop)
     {
+        if (! Auth::user()->hasPermissionTo('show-shopinfo')) {
+            return 403;
+        }
+
         return view('shop.show', compact('shop'));
     }
      //指定账户添加商铺  展示列表
     public function addshop(Request $request)
     {
+        if (! Auth::user()->hasPermissionTo('Add-ShopInfo')) {
+            return 403;
+        }
         $user_id=$request->id;
         $categories = ShopCategory::all();
 
@@ -190,6 +222,9 @@ class ShopController extends Controller
      //保存指定商户
     public function saveshop(Request $request)
     {
+        if (! Auth::user()->hasPermissionTo('Add-ShopInfo')) {
+            return 403;
+        }
         if($request->adduser){
 
             $this->validate($request,
@@ -333,6 +368,9 @@ class ShopController extends Controller
     //查看指定账号下的所有商铺
     public function showall(Request $request)
     {
+        if (! Auth::user()->hasPermissionTo('show-shopinfo')) {
+            return 403;
+        }
        $user_id=$request->id;
        $shops= ShopUser::where('user_id',$user_id)->get();//得到所有的店铺id
 

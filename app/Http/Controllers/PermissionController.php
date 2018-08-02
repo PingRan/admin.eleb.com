@@ -68,6 +68,8 @@ class PermissionController extends Controller
     //删除权限
     public function destroy(Permission $permission)
     {
+        //如果权限已经被角色使用。要先取消在删除
+
         $permission->delete();
         echo 1;
     }

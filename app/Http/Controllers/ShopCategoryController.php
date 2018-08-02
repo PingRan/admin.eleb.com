@@ -123,4 +123,15 @@ class ShopCategoryController extends Controller
         echo $res;
 
     }
+    //修改菜品分类显示或隐藏
+    public function updateSelected(ShopCategory $category)
+    {
+
+        $status=$category->status?0:1;
+
+        $category->update(['status'=>$status]);
+        session()->flash('success','操作成功');
+
+        return redirect()->route('shopcategories.index');
+    }
 }

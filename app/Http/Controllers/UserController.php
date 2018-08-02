@@ -24,9 +24,11 @@ class UserController extends Controller
     }
 
 
-    public function updatestatus(User $user, Request $request)
+    public function updatestatus(User $user)
     {
-        $user->update(['status' => $request->status]);
+        $status=$user->status?0:1;
+
+        $user->update(['status' =>$status]);
 
         session()->flash('success', '操作成功');
 

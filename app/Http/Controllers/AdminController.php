@@ -137,7 +137,7 @@ class AdminController extends Controller
      //修改管理员角色
     public function editAdminRole(Admin $admin)
     {
-        $this->authorize('update',$admin);
+//        $this->authorize('update',$admin);
 
         $roles=Role::all();//获取所有角色
 

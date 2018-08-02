@@ -14,7 +14,6 @@
             <tr>
                 <td>{{$shop->id}}</td>
                 <td>{{$shop->shop_name}}</td>
-                {{--<td>{{$shop->name->name}}</td>--}}
                 <td>{{$shop->shop_category->name}}</td>
                 <td>{{$shop->created_at}}</td>
                 <td>{{$shop->status?($shop->status==1?'正常':'禁用'):'待审核'}}</td>
