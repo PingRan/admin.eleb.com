@@ -28,7 +28,7 @@ class AuditController extends Controller
         $title='商铺通知';
         $user_id=ShopUser::where('shop_id',$shop->id)->first()->user_id;
         $email=User::find($user_id)->email;
-        //$this->sendEmail($title,$content,$email);
+        $this->sendEmail($title,$content,$email);
         return redirect()->route('shops.index');
     }
 
