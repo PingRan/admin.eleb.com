@@ -19,18 +19,6 @@
         </div>
 
         <div class="form-group">
-            <label for="inputPassword7" class="col-sm-2 control-label">所选活动</label>
-            <div class="col-sm-10">
-                <select name="events_id" id="">
-                    <option value="0">请选择活动</option>
-                    @foreach($events as $event)
-                    <option value="{{$event->id}}">{{$event->title}}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group">
             <label for="inputPassword7" class="col-sm-2 control-label">奖品等级</label>
             <div class="col-sm-10">
                 <select name="random" id="">

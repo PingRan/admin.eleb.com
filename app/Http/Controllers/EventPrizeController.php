@@ -13,8 +13,8 @@ class EventPrizeController extends Controller
     //
     public function index()
     {
-     $eventPrizes=EventPrize::paginate(6);
 
+     $eventPrizes=EventPrize::paginate(6);
 
       return view('eventPrize.index',compact('eventPrizes'));
     }
@@ -141,4 +141,5 @@ class EventPrizeController extends Controller
     {
         return view('eventPrize.show',compact('eventPrize'));
     }
+
 }

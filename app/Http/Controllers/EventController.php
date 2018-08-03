@@ -117,6 +117,13 @@ class EventController extends Controller
     //开始抽奖
     public function startLottery(Event $event)
     {
+        //判断开奖日期
+        $time=time();
+        $perizedate=strtotime($event->prize_date);
+        if($time<$perizedate){
+            session()->flash('danger','还未到开奖日期');
+            return redirect()->route('events.index');
+        }
         //判断是否已经开奖了，不能重复开奖
         if($event->is_prize){
             session()->flash('danger','已经开过奖了');
@@ -146,9 +153,11 @@ class EventController extends Controller
         //解决抽奖次数问题   用报名人数和奖品总数小的一个值，作为抽奖次数
         $result=[];
         $number=count($count)>$prizeCount?$prizeCount:count($count);
+
         for ($i=0;$i<$number;$i++){
             $result[]=$this->get_rand($prize_all,$user_Id,$event);
         }
+
         //将中奖信息保存到奖品商家表中
         PrizeUser::insert($result);
 
@@ -171,9 +180,8 @@ class EventController extends Controller
 
     }
     //抽奖概率算法   返回中奖的商家id和奖品名称和活动id的一维数组
-    public function get_rand($prize_all,&$user_Id,$event)
+    public function get_rand(&$prize_all,&$user_Id,$event)
     {
-
         //随机出现的商家id
         $userkey=array_rand($user_Id);//随机弹出中奖的商家的键。
         $userId=$user_Id[$userkey];
@@ -193,17 +201,20 @@ class EventController extends Controller
            }
        }
 
-       unset($prize_all);
-
         $Winning=EventPrize::find($result);
         //定一个中奖品数组
         $winarr=['user_id'=>$userId,'prize_name'=>$Winning->name,'events_id'=>$event->id];
 
         $Winning->update(['num'=>$Winning->num-1]);
+        //判断奖品是否还有如果被抽完了 从奖品池删除
+        if($Winning->num==0){
+            unset($prize_all[$result]);
+        }
+
         unset($user_Id[$userkey]);
+
         return $winarr;
     }
-
     //邮件方法
     public function sendEmail($title,$content,$email)
     {

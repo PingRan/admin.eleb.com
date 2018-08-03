@@ -22,6 +22,7 @@
                 <td>{{$event->signup_num}}</td>
                 <td>{{$event->is_prize?'已开奖':'未开奖'}}</td>
                 <td>
+                    <a  class="btn bg-info" href="{{route('startLottery',['event'=>$event])}}">开奖</a>
 
                     <a class="test" href="{{route('events.edit',['event'=>$event->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>
@@ -32,7 +33,6 @@
 
                     <a id="{{$event->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
 
-                    <a  class="btn bg-info" href="{{route('startLottery',['event'=>$event])}}">开奖</a>
 
                 </td>
 

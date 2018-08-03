@@ -1,30 +1,27 @@
 @extends('default')
 @section('content')
+    <h1>设置奖品</h1>
 
     <table class="table table-striped table-hover">
         <tr class="success">
             <th>奖品id</th>
             <th>奖品名称</th>
+            <th>奖品所属活动</th>
             <th>奖品数量</th>
-            <th>所属活动</th>
-            <th>中奖商家</th>
             <th>操作</th>
         </tr>
         @foreach($eventPrizes as $prize)
             <tr>
                 <td>{{$prize->id}}</td>
                 <td>{{$prize->name}}</td>
-                <td>{{$prize->num}}</td>
                 <td>{{$prize->eventName->title}}</td>
-                <td>{{$prize->user_id?$prize->user->name:$prize->user_id}}</td>
+                <td>{{$prize->num}}</td>
                 <td>
-
                     <a class="test" href="{{route('eventPrizes.edit',['eventPrize'=>$prize->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>
 
                     <a class="test" href="{{route('eventPrizes.show',['eventPrize'=>$prize])}}"><span
                                 class="glyphicon glyphicon-zoom-in"></span></a>
-
 
                     <a id="{{$prize->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
 

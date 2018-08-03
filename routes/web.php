@@ -82,6 +82,9 @@ Route::resource('navs','NavController')->middleware(['role:超级管理员']);
 Route::resource('events','EventController')->middleware(['role:超级管理员|活动负责人']);
 //抽奖奖品
 Route::resource('eventPrizes','EventPrizeController')->middleware(['role:超级管理员|活动负责人']);
+
+//抽奖奖品
+Route::get('prizeList/{event}','EventPrizeController@index')->name('prizeList')->middleware(['role:超级管理员|活动负责人']);
 //报名表
 Route::get('eventUsers','EventUserController@index')->middleware(['role:超级管理员|活动负责人']);
 //开奖
