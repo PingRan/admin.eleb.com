@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ShopUser;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -74,7 +75,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $success = ['success' => true];
-        if ($user->shop_id) {
+        $result=ShopUser::where('user_id',$user->id)->first();
+        if ($result) {
 
             $success = ['success' => false];
             $res = json_encode($success);

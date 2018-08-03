@@ -192,9 +192,6 @@ class ShopController extends Controller
     //商户删除
     public function destroy(Shop $shop)
     {
-        if (! Auth::user()->hasPermissionTo('Del-ShopInfo')) {
-            return 403;
-        }
         $shop->delete();
         echo '删除成功';
     }
@@ -283,6 +280,8 @@ class ShopController extends Controller
                 $request['shop_id'] = $shop_id;
 
                 $request['status'] = $request->UserStatus??0;
+
+                $request['child']=1;
 
                 $user=User::create($request->input());
 

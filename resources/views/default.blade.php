@@ -11,16 +11,15 @@
     @yield('web.js')
     <style>
         body{
-            /*-webkit-perspective: 800px;*/
-            /*perspective: 800px;*/
             height: 100vh;
             margin: 0;
         }
+        body{background:url("/121.jpg") no-repeat;font-size: 16px;}
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container" style="position: absolute;top:0;margin-left: 300px;">
     <div class="row">
         <div class="col-xs-12">
             @include('default._nav')
@@ -68,15 +67,15 @@
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
-{{--<script type="text/javascript" src="/js/Particleground.js"></script>--}}
-{{--<script type="text/javascript" src="/Js/Treatment.js"></script>--}}
+<script type="text/javascript" src="/js/Particleground.js"></script>
+<script type="text/javascript" src="/Js/Treatment.js"></script>
 
-{{--<script>--}}
-    {{--$('body').particleground({--}}
-        {{--dotColor: '#E8DFE8',--}}
-        {{--lineColor: '#8cfabd'--}}
-    {{--});--}}
-{{--</script>--}}
+<script>
+    $('body').particleground({
+        dotColor: '#E8DFE8',
+        lineColor: '#faebf9'
+    });
+</script>
 @yield('js')
 </body>
 </html>

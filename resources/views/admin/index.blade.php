@@ -20,7 +20,7 @@
                      @endforeach
                 </td>
                 <td>
-                    <a class="test" href="{{route('editAdminRole',['admin'=>$admin->id])}}">修改管理员角色</a>
+                    <a class="btn bg-info" href="{{route('editAdminRole',['admin'=>$admin->id])}}">修改管理员角色</a>
                     @if(Auth()->id()===$admin->id)
                     <a class="test" href="{{route('admins.edit',['admin'=>$admin->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>

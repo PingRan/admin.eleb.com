@@ -28,7 +28,7 @@
                     <!--用来存放item-->
                     <div id="fileList" class="uploader-list"></div>
                     <div id="filePicker">选择图片</div>
-                    <img id="img" src="{{$shop->shop_img}}" alt="">
+                    <img width="150px;" id="img" src="{{$shop->shop_img}}" alt="">
                 </div>
                 <input id="img_url" type="hidden" name="shop_img">
             </div>
