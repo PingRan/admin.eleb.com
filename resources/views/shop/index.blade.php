@@ -17,11 +17,19 @@
                 <td>{{$shop->shop_category->name}}</td>
                 <td>{{$shop->created_at}}</td>
                 <td>{{$shop->status?($shop->status==1?'正常':'禁用'):'待审核'}}</td>
-                <td><a class="test" href="{{route('shops.edit',['shop'=>$shop->id])}}"><span
+
+                <td>
+                    @can('Edit-ShopInfo')
+                    <a class="test" href="{{route('shops.edit',['shop'=>$shop->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>
+                     @endcan
+                    @can('Show-ShopInfo')
                     <a class="test" href="{{route('shops.show',['shop'=>$shop])}}"><span
                                 class="glyphicon glyphicon-zoom-in"></span></a>
+                    @endcan
+                    @can('Del-ShopInfo')
                     <a id="{{$shop->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                    @endcan
                 </td>
             </tr>
         @endforeach

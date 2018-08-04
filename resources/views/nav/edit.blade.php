@@ -36,7 +36,7 @@
             <label for="inputPassword7" class="col-sm-2 control-label">请选择权限</label>
             <div class="col-sm-10">
                 @foreach($permissions as $permission)
-                    <label><input type="radio"  {{$nav->permission_id==$permission->id?'checked':''}} name="permission_id" value="{{$permission->id}}">{{$permission->name}}</label>
+                    <label><input type="checkbox"  {{$nav->permission_id==$permission->id?'checked':''}} name="permission_id" value="{{$permission->id}}">{{$permission->name}}</label>
                 @endforeach
             </div>
         </div>

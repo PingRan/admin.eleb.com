@@ -12,6 +12,12 @@ use Illuminate\Validation\Rule;
 
 class EventController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
     //抽奖活动列表
     public function index()
     {
@@ -167,14 +173,14 @@ class EventController extends Controller
 
         //给中奖商家发送邮件提醒;
         //遍历中奖商家，拿到邮箱;
-//        foreach ($result as $res){
-//            $email=User::find($res['user_id'])->email;
-//
-//            $content='恭喜您,在'.$event->title.'中得奖品'.$res['prize_name'];
-//
-//            $title='开奖信息';
-//            $this->sendEmail($title,$content,$email);
-//        }
+        foreach ($result as $res){
+            $email=User::find($res['user_id'])->email;
+
+            $content='恭喜您,在'.$event->title.'中得奖品'.$res['prize_name'];
+
+            $title='开奖信息';
+            $this->sendEmail($title,$content,$email);
+        }
 
         return redirect()->route('events.index');
 

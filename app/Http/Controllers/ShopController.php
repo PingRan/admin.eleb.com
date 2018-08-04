@@ -199,7 +199,7 @@ class ShopController extends Controller
      //商户详情信息
     public function show(Shop $shop)
     {
-        if (! Auth::user()->hasPermissionTo('show-shopinfo')) {
+        if (! Auth::user()->hasPermissionTo('Show-ShopInfo')) {
             return 403;
         }
 
@@ -367,7 +367,7 @@ class ShopController extends Controller
     //查看指定账号下的所有商铺
     public function showall(Request $request)
     {
-        if (! Auth::user()->hasPermissionTo('show-shopinfo')) {
+        if (! Auth::user()->hasPermissionTo('Show-ShopInfo')) {
             return 403;
         }
        $user_id=$request->id;

@@ -10,6 +10,12 @@ use Spatie\Permission\Models\Permission;
 
 class NavController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
     //
     public function index()
     {
@@ -34,7 +40,7 @@ class NavController extends Controller
         $this->validate($request,
             [
               'name'=>'required|between:2,12|unique:navs',
-              'permission_id'=>'required',
+//              'permission_id'=>'required',
             ],
             [
               'name.required'=>'菜单名字不能为空',
@@ -44,7 +50,8 @@ class NavController extends Controller
               'permission_id.required'=>'请选择权限'
             ]
         );
-        $request->url=$request->url??'';
+        $request['permission']=$request->permission_id??0;
+        $request['url']=$request->url??'';
         Nav::create($request->input());
         session()->flash('success','添加菜单成功');
         return redirect()->route('navs.index');
@@ -77,7 +84,6 @@ class NavController extends Controller
         $this->validate($request,
             [
                 'name'=>['required','between:2,12',Rule::unique('navs')->ignore($nav->id)],
-                'permission_id'=>'required',
             ],
             [
                 'name.required'=>'菜单名字不能为空',
@@ -90,8 +96,9 @@ class NavController extends Controller
             return back()->with('danger','不能修改为自己');
         }
         $url=$request->url??'';
+        $permission=$request->permission_id??0;
 
-        $nav->update(['name'=>$request->name,'url'=>$url,'permission_id'=>$request->permission_id,'pid'=>$request->pid]);
+        $nav->update(['name'=>$request->name,'url'=>$url,'permission_id'=>$permission,'pid'=>$request->pid]);
 
         session()->flash('success','修改菜单成功');
         return redirect()->route('navs.index');

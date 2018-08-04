@@ -7,7 +7,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
-{   //订单页面
+{
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
+    //订单页面
     public function index()
     {
         return view('order.index');

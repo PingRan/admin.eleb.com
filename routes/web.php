@@ -55,7 +55,7 @@ Route::post('uploader',function(){
     return ['fileurl'=>$fileurl];
 })->name('uploader')->middleware(['role:超级管理员|管理员|活动负责人|商家管理员']);
 
-Route::resource('members','MemberController')->middleware(['role:超级管理员|管理员|会员管理']);
+Route::resource('members','MemberController')->middleware(['role:超级管理员|管理员|会员管理|审核员']);
 //修改会员状态
 Route::get('editstatus/{member}/{status}','MemberController@editstatus')->name('editstatus')->middleware(['role:超级管理员|管理员|审核员']);
 
@@ -79,13 +79,12 @@ Route::post('saveAdminRole/{admin}','AdminController@saveAdminRole')->name('save
 //菜单管理
 Route::resource('navs','NavController')->middleware(['role:超级管理员']);
 //抽奖活动
-Route::resource('events','EventController')->middleware(['role:超级管理员|活动负责人']);
+Route::resource('events','EventController')->middleware(['role:超级管理员|管理员|活动负责人']);
 //抽奖奖品
-Route::resource('eventPrizes','EventPrizeController')->middleware(['role:超级管理员|活动负责人']);
-
+Route::resource('eventPrizes','EventPrizeController')->middleware(['role:超级管理员|管理员|活动负责人']);
 //抽奖奖品
-Route::get('prizeList/{event}','EventPrizeController@index')->name('prizeList')->middleware(['role:超级管理员|活动负责人']);
+Route::get('prizeList/{event}','EventPrizeController@index')->name('prizeList')->middleware(['role:超级管理员|管理员|活动负责人']);
 //报名表
-Route::get('eventUsers','EventUserController@index')->middleware(['role:超级管理员|活动负责人']);
+Route::get('eventUsers','EventUserController@index')->middleware(['role:超级管理员|管理员|活动负责人']);
 //开奖
-Route::get('startLottery/{event}','EventController@startLottery')->name('startLottery');
+Route::get('startLottery/{event}','EventController@startLottery')->name('startLottery')->middleware(['role:超级管理员|管理员|活动负责人']);;

@@ -30,12 +30,13 @@ class Nav extends Model
       foreach(Nav::where('pid',0)->get() as $nav){
 
           $children_html='';
-          if(Auth::user()->can($nav->permission_name->name)){
 
               foreach ($nav->children as $n){
-                  $children_html.='<li><a href="'.url($n->url).'">'.$n->name.'</a></li>';
-              }
-          };
+                  $permission=$n->permission_name->name??'';//判断是否具有二级菜单对应的权限 有拼接成子菜单
+                  if(Auth::user()->can($permission)) {
+                      $children_html .= '<li><a href="' . url($n->url) . '">' . $n->name . '</a></li>';
+                  }
+                  }
 
           if(empty($children_html)){
               //父的html没必要存在

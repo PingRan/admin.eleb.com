@@ -4,13 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 
 class MemberController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
     //
     public function index()
     {
+        if (! Auth::user()->hasPermissionTo('MemberList')) {
+            return 403;
+        }
+
      $members=Member::paginate(6);
 
      return view('member.index',compact('members'));
@@ -18,11 +29,18 @@ class MemberController extends Controller
 
     public function create()
     {
+        if (! Auth::user()->hasPermissionTo('Add-Member')) {
+            return 403;
+        }
         return view('member.create');
     }
 
     public function store(Request $request)
     {
+        if (! Auth::user()->hasPermissionTo('Add-Member')) {
+            return 403;
+        }
+
         $this->validate($request,
             [
                 'username'=>'required|between:6,12|unique:members',
@@ -51,12 +69,18 @@ class MemberController extends Controller
 
     public function edit(Member $member)
     {
+        if (! Auth::user()->hasPermissionTo('Edit-Member')) {
+            return 403;
+        }
         return view('member.edit',compact('member'));
     }
 
     public function update(Request $request,Member $member)
     {
 
+        if (! Auth::user()->hasPermissionTo('Edit-Member')) {
+            return 403;
+        }
         $this->validate($request,
             [
                 'username'=>['required',Rule::unique('members')->ignore($member->id)],
@@ -86,18 +110,27 @@ class MemberController extends Controller
 
     public function destroy(Member $member)
     {
+        if (! Auth::user()->hasPermissionTo('Del-Member')) {
+            return 403;
+        }
         $member->delete();
         echo 1;
     }
 
     public function show(Member $member)
     {
+        if (! Auth::user()->hasPermissionTo('Show-MemberInfo')) {
+            return 403;
+        }
+
         return view('member.show',compact('member'));
     }
     //修改会员状态
     public function editstatus(Request $request,Member $member)
     {
-
+        if (! Auth::user()->hasPermissionTo('Disable-Member')) {
+            return 403;
+        }
         $member->update(['status'=>$request->status]);
 
         session()->flash('success','操作成功');

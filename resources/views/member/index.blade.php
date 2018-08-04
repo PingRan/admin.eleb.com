@@ -16,13 +16,17 @@
                 <td>{{$member->created_at}}</td>
 
                 <td>
-
+                    @can('Edit-Member')
                     <a class="test" href="{{route('members.edit',['member'=>$member->id])}}"><span
                                 class="glyphicon glyphicon-edit"></span></a>
-
+                    @endcan
+                    @can('Show-MemberInfo')
                     <a class="test" href="{{route('members.show',['member'=>$member])}}"><span
                                 class="glyphicon glyphicon-zoom-in"></span></a>
+                    @endcan
+                    @can('Del-Member')
                     <a id="{{$member->id}}" class="delete" href="#"><span class="glyphicon glyphicon-trash"></span></a>
+                    @endcan
                 </td>
             </tr>
         @endforeach
