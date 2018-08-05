@@ -38,9 +38,9 @@ class EventController extends Controller
              'title'=>['required','between:2,50','unique:events'],
              'content'=>['required'],
              'signup_start'=>['required','after:now'],
-             'signup_end'=>['required','after:start_time'],
+             'signup_end'=>['required','after:signup_start'],
              'signup_num'=>['required'],
-             'prize_date'=>['required'],
+             'prize_date'=>['required','after:signup_end'],
             ],
             [
                 'title.required'=>'请填写活动标题',
@@ -80,9 +80,9 @@ class EventController extends Controller
                 'title'=>['required','between:2,50',Rule::unique('events')->ignore($event->id)],
                 'content'=>['required'],
                 'signup_start'=>['required','after:now'],
-                'signup_end'=>['required','after:start_time'],
+                'signup_end'=>['required','after:signup_start'],
                 'signup_num'=>['required'],
-                'prize_date'=>['required'],
+                'prize_date'=>['required','after:signup_end'],
             ],
             [
                 'title.required'=>'请填写活动标题',
@@ -95,6 +95,7 @@ class EventController extends Controller
                 'signup_end.after'=>'活动报名结束时间,应在活动开始之后',
                 'signup_num.required'=>'请设置活动报名人数',
                 'prize_date.required'=>'请选择开奖 日期',
+                'prize_date.after'=>'开奖时间必须在报名结束之后'
             ]
         );
 
@@ -179,6 +180,7 @@ class EventController extends Controller
             $content='恭喜您,在'.$event->title.'中得奖品'.$res['prize_name'];
 
             $title='开奖信息';
+
             $this->sendEmail($title,$content,$email);
         }
 
