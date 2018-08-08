@@ -6,6 +6,7 @@ use App\Models\Shop;
 use App\Models\ShopUser;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class AuditController extends Controller
 {
@@ -22,6 +23,8 @@ class AuditController extends Controller
 
         $shop->update(['status'=>$request->status]);
         session()->flash('success','操作成功');
+        //修改店铺状态时  更新缓存中的数据 展示最新的店铺信息
+        Redis::del('shopList');
 
         $cont=$shop->status==1?$shop->shop_name.'已通过审核':$shop->shop_name.'未通过审核';
         $content=date('Y-m-d H:i:s').$cont;

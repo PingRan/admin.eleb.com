@@ -71,10 +71,10 @@
 <script type="text/javascript" src="/Js/Treatment.js"></script>
 
 <script>
-    $('body').particleground({
-        dotColor: '#E8DFE8',
-        lineColor: '#faebf9'
-    });
+//    $('body').particleground({
+//        dotColor: '#E8DFE8',
+//        lineColor: '#faebf9'
+//    });
 </script>
 @yield('js')
 </body>

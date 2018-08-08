@@ -8,6 +8,13 @@ use Illuminate\Http\Request;
 class ActivityController extends Controller
 {
     //
+    public function __construct()
+    {
+        $this->middleware('auth',[
+            'except'=>[],
+        ]);
+    }
+
     public function index(Request $request)
     {
         $activities=Activity::paginate(6);
@@ -31,6 +38,7 @@ class ActivityController extends Controller
         }
 
         return view('activity.index',compact('activities'));
+
     }
 
     public function create()
@@ -50,6 +58,7 @@ class ActivityController extends Controller
            [
              'title.required'=>'活动标题不能为空',
              'title.max'=>'活动标题长度在60个字以内',
+              'title.unique'=>'标题已存在',
               'start_time.required'=>'活动的开始时间不能为空',
                'start_time.after'=>'活动的开始时间必须在当前时间之后',
               'end_time.required'=>'活动的结束时间不能为空',
@@ -59,18 +68,20 @@ class ActivityController extends Controller
        );
        $request['start_time']=strtotime($request->start_time);
        $request['end_time']=strtotime($request->end_time);
-       Activity::create($request->input());
+       $activity=Activity::create($request->input());
+       //生成活动静态详情
+        $url=$this->createShow($activity);
+        $activity->update(['static_url'=>$url]);
 
-       session()->flash('success','添加成功');
+        //生成活动静态列表
+       return $this->createList();
 
-       return redirect()->route('activities.index');
     }
 
     public function edit(Activity $activity)
     {
        return view('activity.edit',compact('activity'));
     }
-
 
     public function update(Request $request,Activity $activity)
     {
@@ -95,16 +106,20 @@ class ActivityController extends Controller
 
         $end_time=strtotime($request->end_time);
 
-        $activity->update(['title'=>$request->title,'start_time'=>$start_time,'end_time'=>$end_time]);
+        //生成活动静态详情
+        $url=$this->createShow($activity);
 
-        session()->flash('success','修改成功');
-
-        return redirect()->route('activities.index');
+        $activity->update(['title'=>$request->title,'start_time'=>$start_time,'end_time'=>$end_time,'static_url'=>$url]);
+        return $this->createList();
     }
 
     public function destroy(Activity $activity)
     {
         $activity->delete();
+        $this->createList();
+        if(is_file('active/active'.$activity->id.'.html')){
+            unlink('active/active'.$activity->id.'.html');
+        }
         echo 1;
     }
 
@@ -112,5 +127,30 @@ class ActivityController extends Controller
     {
         return view('activity.show',compact('activity'));
     }
+    //生成活动列表静态页面/
+    public function createList()
+    {
+        //查看未结束的活动
+        $activities=Activity::where('end_time','>',time())->offset(0)->limit(6)->get();
 
+        if(!is_dir('active')){
+            mkdir('active',0777,true);
+        }
+         $article_List=view('activity.active_List',compact('activities'));
+         file_put_contents('active/active_List.html',$article_List);
+
+        session()->flash('success','操作成功,已更新活动静态页');
+        return redirect()->route('activities.index');
+    }
+    //生成活动详情的静态页面方法  /返回静态页面的url地址
+    public function createShow(Activity $activity){
+
+     $content=view('activity.create_Show',compact('activity'));
+     if(!is_dir('active')){
+         mkdir('active',0777,true);
+     }
+     file_put_contents('active/active'.$activity->id.'.html',$content);
+     return $url='/active/active'.$activity->id.'.html';
+
+    }
 }

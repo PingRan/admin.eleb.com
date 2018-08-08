@@ -43,8 +43,11 @@ Route::get('resetpass','UserController@resetpass')->name('resetpass')->middlewar
 Route::get('resetname','UserController@resetname')->name('resetname')->middleware(['role:超级管理员|管理员|商家管理员']);
 
 Route::post('resetpass/{user}','UserController@resetpassword')->name('resetpassword')->middleware(['role:超级管理员|管理员|商家管理员']);
-
+//活动
 Route::resource('activities','ActivityController')->middleware(['role:超级管理员|管理员|活动负责人']);
+//生成活动静态页
+Route::get('active/List','ActivityController@createList')->name('active.List')->middleware(['role:超级管理员|管理员|活动负责人']);
+
 
 Route::get('showall/{id}','ShopController@showall')->name('showall')->middleware(['role:超级管理员|管理员|商家管理员']);
 

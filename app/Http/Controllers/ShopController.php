@@ -10,6 +10,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 class ShopController extends Controller
@@ -129,6 +130,7 @@ class ShopController extends Controller
             DB::rollBack();
         }
 
+        Redis::del('shopList');
         return redirect()->route('shops.index');
 
     }
@@ -186,13 +188,14 @@ class ShopController extends Controller
         $shop->update($data);
 
         session()->flash('success', '修改成功');
-
+        Redis::del('shopList');
         return redirect()->route('shops.index');
     }
     //商户删除
     public function destroy(Shop $shop)
     {
         $shop->delete();
+        Redis::del('shopList');
         echo '删除成功';
     }
 
@@ -294,7 +297,7 @@ class ShopController extends Controller
                 DB::commit();
 
                 session()->flash('success', '添加和注册成功');
-
+                Redis::del('shopList');
                 return redirect()->route('shops.index');
 
             } catch (\Exception $e) {
@@ -354,7 +357,7 @@ class ShopController extends Controller
                 DB::rollBack();
             }
 
-
+            Redis::del('shopList');
             session()->flash('success','注册成功');
 
             return redirect()->route('shops.index');
