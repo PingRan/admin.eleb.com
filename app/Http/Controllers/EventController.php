@@ -226,14 +226,14 @@ class EventController extends Controller
         return $winarr;
     }
     //邮件方法
-    public function sendEmail($title,$content,$email)
-    {
-        $r =\Illuminate\Support\Facades\Mail::send('Email', ['content'=>$content], function ($message)use($title,$content,$email) {
-            $message->from('pingran1993@163.com', 'eleb平台');
-            $message->to([$email])->subject($title);
-        });
-
-    }
+//    public function sendEmail($title,$content,$email)
+//    {
+//        $r =\Illuminate\Support\Facades\Mail::send('Email', ['content'=>$content], function ($message)use($title,$content,$email) {
+//            $message->from('pingran1993@163.com', 'eleb平台');
+//            $message->to([$email])->subject($title);
+//        });
+//
+//    }
 
 
 
