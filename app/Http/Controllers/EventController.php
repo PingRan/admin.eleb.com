@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Jobs\SendEmail;
+use App\Jobs\SendEvent;
 use App\Models\Event;
 use App\Models\EventPrize;
 use App\Models\EventUser;
@@ -182,7 +182,7 @@ class EventController extends Controller
 
             $title='开奖信息';
 
-            $job=(new SendEmail($email,$content,$title))->onQueue('default');
+            $job=(new SendEvent($email,$content,$title))->onQueue('default');
             $this->dispatch($job);
         }
 
